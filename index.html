@@ -100,17 +100,15 @@
   .item .call{display:inline-block;margin-top:6px;font-size:12px;color:var(--amber);text-decoration:none;position:relative;z-index:2;}
   .item .tap-hint{font-size:10.5px;color:var(--text-muted);opacity:.7;margin-top:2px;}
 
-  footer{margin-top:18px;font-size:11.5px;color:var(--text-muted);line-height:1.6;text-align:center;padding:0 10px;}
+  footer{margin-top:18px;text-align:center;padding:0 10px 0;}
 
-  .credit{
-    margin-top:16px;padding:16px;border-radius:var(--radius);
-    border:1px dashed var(--line);text-align:center;
+  .credit-mini{
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:12px;color:var(--text-muted);
+    padding:10px 0;
   }
-  .credit .made{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin-bottom:6px;}
-  .credit .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--accent);}
-  .credit .tag{font-size:12.5px;color:var(--text-muted);margin-top:2px;}
-  .credit .links{margin-top:8px;display:flex;gap:14px;justify-content:center;}
-  .credit .links a{color:var(--text-muted);font-size:12.5px;text-decoration:none;border-bottom:1px solid var(--line);}
+  .credit-mini .credit-label{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--accent);font-size:12.5px;}
+  .credit-mini .credit-tag{color:var(--text-muted);}
 
   .error{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.4);color:#ffb3b3;padding:12px 14px;border-radius:12px;font-size:13.5px;margin-top:12px;text-align:left;}
 
@@ -193,14 +191,14 @@
   </details>
 
   <footer>
-    <span id="periodoTxt">Turno vigente: cargando…</span><br>
-    Dato leído automáticamente de El Litoral (originado en el Colegio de Farmacéuticos de Santa Fe 1ª Circ.), actualizado cada 10 minutos.<br>
-    Tocá cualquier farmacia del listado para trazar la ruta hasta ella.
-
-    <div class="credit">
-      <div class="made">Una herramienta de</div>
-      <div class="name">Al Toque</div>
-      <div class="tag">Soluciones de bolsillo</div>
+    <div class="credit-mini">
+      <svg width="18" height="18" viewBox="0 0 100 100" style="vertical-align:middle;margin-right:4px;">
+        <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="3" opacity=".3"/>
+        <circle cx="50" cy="50" r="32" fill="none" stroke="var(--accent)" stroke-width="3" opacity=".5"/>
+        <circle cx="50" cy="50" r="16" fill="var(--accent)"/>
+        <polyline points="40,50 47,58 62,42" fill="none" stroke="var(--bg-deep)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="credit-label">Al Toque</span> · <span class="credit-tag">Soluciones de bolsillo</span>
     </div>
   </footer>
 </div>
@@ -281,9 +279,6 @@ async function loadPharmacies(isBackground){
       : 'Función no disponible todavía: mostrando datos de referencia';
     if(!isBackground) CURRENT_PHARMACIES = PHARMACIES_FALLBACK;
   }
-  document.getElementById('periodoTxt').textContent = periodoLabel
-    ? ('Turno vigente: ' + periodoLabel)
-    : 'Turno vigente: no se pudo leer el período actual.';
 
   // Si ya sabemos dónde está el usuario, recalculamos con el dato fresco
   if(userLat !== null) recompute();
